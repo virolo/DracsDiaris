@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WaveSystem : MonoBehaviour
 {
-    [SerializeField] private List<Wave> _waves = new List<Wave>();
+   /*[SerializeField] private List<Wave> _waves = new List<Wave>();
     
     private Queue<Wave> _wavesQueue = new Queue<Wave>();
     
@@ -20,5 +20,5 @@ public class WaveSystem : MonoBehaviour
     public Wave GetNextWave()
     {
         return _wavesQueue.Dequeue();
-    }
+    }*/
 }
