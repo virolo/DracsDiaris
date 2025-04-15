@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WaveSystem : MonoBehaviour
 {
-    [SerializeField] private Waves _waves;
+    [SerializeField] private WavesConfig _wavesConfig;
     
     private Queue<Wave> _wavesQueue = new Queue<Wave>();
     
@@ -11,13 +11,13 @@ public class WaveSystem : MonoBehaviour
     public int WavesRemaining => _wavesQueue.Count;
 
 
-    private void Start()
+    private void Awake()
     {
-        _wavesQueue = new Queue<Wave>(_waves.GetWaves);
+        _wavesQueue = new Queue<Wave>(_wavesConfig.GetWaves);
     }
 
     public Wave GetNextWave()
     {
-        return _wavesQueue.Dequeue();
+        return _wavesQueue.Count > 0 ? _wavesQueue.Dequeue() : default(Wave);
     }
 }

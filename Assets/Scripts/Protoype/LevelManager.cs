@@ -1,8 +1,5 @@
-using System;
 using Unity.Collections;
 using UnityEngine;
-
-
 public class LevelManager : MonoBehaviour
 {
     public enum LevelState
@@ -13,25 +10,25 @@ public class LevelManager : MonoBehaviour
         GameOver,
         Win
     }
-
+    
     [Header("Components")] [SerializeField]
     private EnemiesManager _enemies;
     [SerializeField] private WaveSystem _waveSystem;
 
-    [SerializeField] private BenchManager _bench;
+    //[SerializeField] private BenchManager _bench;
     
     [Header("Values")] [SerializeField] private float _princessHealth = 100f;
     [SerializeField] private float _waveCount = 3f;
 
 
-    [ReadOnly] private LevelState _levelState;
+    [SerializeField,ReadOnly] private LevelState _levelState;
 
     public EnemiesManager Enemies => _enemies;
-    public BenchManager Bench => _bench;
+    //public BenchManager Bench => _bench;
 
     private void Start()
     {
-        _levelState = LevelState.Setup;
+       ChangeState(LevelState.Setup);
     }
 
     private void Update()
@@ -41,21 +38,22 @@ public class LevelManager : MonoBehaviour
     
     public void ChangeState(LevelState newState)
     {
-        EndState(_levelState,newState);
-        StartState(_levelState,newState);
+        if (newState == _levelState) return;
+        
+        EndState(_levelState);
+        StartState(newState);
     }
     
-    private void StartState(LevelState currentState, LevelState newState)
+    private void StartState(LevelState newState)
     {
      
-        switch (_levelState)
+        switch (newState)
         {
             case LevelState.Setup:
-                
                 Enemies.SpawnEnemies(_waveSystem.GetNextWave());
                 break;
             case LevelState.Wave:
-                InitWave();
+                Enemies.InitWave(this);
                 break;
             case LevelState.Shop:
                 break;
@@ -64,6 +62,8 @@ public class LevelManager : MonoBehaviour
             case LevelState.Win:
                 break;
         }
+
+        _levelState = newState;
     }
 
     private void UpdateState()
@@ -80,7 +80,7 @@ public class LevelManager : MonoBehaviour
                 }
                 else
                 {
-                    ChangeState(LevelState.Shop);
+                    ChangeState(LevelState.Setup);
                 }
                 break;
             case LevelState.Shop:
@@ -92,9 +92,9 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    private void EndState(LevelState currentState, LevelState newState)
+    private void EndState(LevelState currentState)
     {
-        switch (_levelState)
+        switch (currentState)
         {
             case LevelState.Setup:
                 break;
@@ -110,6 +110,6 @@ public class LevelManager : MonoBehaviour
     }
     public void InitWave()
     {
-        _enemies.InitWave(this);
+        ChangeState(LevelState.Wave);
     }
 }

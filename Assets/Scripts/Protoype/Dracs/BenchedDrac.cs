@@ -8,6 +8,8 @@ public class BenchedDrac : MonoBehaviour
     public DracData DracData => _dracData;
     public float TimeRemaining => _timeRemaining;
 
+    
+    // No pots cridar al constructor a una classe Mono Behaviour 
     public BenchedDrac(DracData data, float timeRemaining)
     {
         _dracData = data;

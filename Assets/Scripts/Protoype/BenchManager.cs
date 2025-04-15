@@ -4,7 +4,7 @@ using UnityEngine;
 public class BenchManager : MonoBehaviour
 {
     [SerializeField]
-    private List<DracData> _dracDeck = default; //En un futur aixo ha de vindre donat pel level manager: quins dracs tindrà el jugador per jugar el nivell
+    private List<DracData> _dracDeck = default; //En un futur aixo ha de vindre donat pel level manager: quins dracs tindrï¿½ el jugador per jugar el nivell
 
     private List<BenchedDrac> _bench = default;
 
@@ -18,7 +18,7 @@ public class BenchManager : MonoBehaviour
     {
         foreach(DracData data in _dracDeck)
         {
-            _bench.Add(new BenchedDrac(data, data._time));
+           // _bench.Add(new BenchedDrac(data, data._time));
         }
     }
     
@@ -38,7 +38,7 @@ public class BenchManager : MonoBehaviour
 
     public void BenchDrac(Drac drac)
     {
-        _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
+       // _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
     }
 
 }

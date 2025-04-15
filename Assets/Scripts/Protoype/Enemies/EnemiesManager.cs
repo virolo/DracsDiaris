@@ -16,7 +16,7 @@ public class EnemiesManager : MonoBehaviour
 
     public bool HasEnemies =>
         _activeEnemies.Count > 0 
-        && _waitingEnemies.Count > 0;
+        || _waitingEnemies.Count > 0;
 
 
     public void SpawnEnemies(Wave wave)

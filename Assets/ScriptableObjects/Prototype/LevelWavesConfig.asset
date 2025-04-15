@@ -9,20 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Wave
-  m_EditorClassIdentifier: Assembly-CSharp::Waves
+  m_Script: {fileID: 11500000, guid: def634f0d440093479f6a6131c39f234, type: 3}
+  m_Name: LevelWavesConfig
+  m_EditorClassIdentifier: Assembly-CSharp::WavesConfig
   _waves:
   - WaveData:
     - EnemyData: {fileID: 11400000, guid: 9ec92095bba67e3468ce0a18d6387db0, type: 2}
       EnemiesAmount: 10
     - EnemyData: {fileID: 11400000, guid: d366c6d55a6dc39498813a8fd35dbc74, type: 2}
-      EnemiesAmount: 20
-  - WaveData:
-    - EnemyData: {fileID: 11400000, guid: d366c6d55a6dc39498813a8fd35dbc74, type: 2}
-      EnemiesAmount: 10
+      EnemiesAmount: 30
   - WaveData:
     - EnemyData: {fileID: 11400000, guid: 1676c3b920415f24fae96fd77258a084, type: 2}
-      EnemiesAmount: 5
+      EnemiesAmount: 35
     - EnemyData: {fileID: 11400000, guid: 6cc4c6a639fe5c5419c61cbb73d8cf00, type: 2}
-      EnemiesAmount: 25
+      EnemiesAmount: 45
