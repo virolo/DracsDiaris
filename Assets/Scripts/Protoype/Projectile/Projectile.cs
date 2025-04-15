@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            List<Enemy> enemy = _levelManager.GetEnemiesInRange(transform.position, 2.0f);
+            List<Enemy> enemy = _levelManager.Enemies.GetEnemiesInRange(transform.position, 2.0f);
 
             if (enemy.Count > 0)
             {

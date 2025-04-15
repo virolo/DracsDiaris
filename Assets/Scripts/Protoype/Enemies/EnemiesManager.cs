@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,9 +12,12 @@ public class EnemiesManager : MonoBehaviour
 
     private List<Enemy> _waitingEnemies = new List<Enemy>();
     private List<Enemy> _activeEnemies = new List<Enemy>();
-    
-    public List<Enemy> ActiveEnemies => _activeEnemies;
-    
+
+
+    public bool HasEnemies =>
+        _activeEnemies.Count > 0 
+        && _waitingEnemies.Count > 0;
+
     public void SpawnEnemies(int amount, EnemyData data)
     {
         for (int i = 0; i < amount; i++)
@@ -38,6 +42,7 @@ public class EnemiesManager : MonoBehaviour
         List<Enemy> toStart = new List<Enemy>(_waitingEnemies);
         _waitingEnemies.Clear(); 
         
+        //Todo- revisar si voleum un ordre determinat
         ShuffleList(toStart);
         
         foreach (Enemy enemy in toStart)
@@ -46,8 +51,29 @@ public class EnemiesManager : MonoBehaviour
             RegisterEnemy(enemy);
             
             //TODO
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
         }
+    }
+    
+    public List<Enemy> GetEnemiesInRange(Vector3 origin, float range)
+    {
+        float sqrRange = range * range;
+        
+        List<(Enemy enemy, float sqrDist)> enemiesInRange = new List<(Enemy,float)>();
+
+        foreach (Enemy enemy in _activeEnemies)
+        {
+            
+            if (enemy == null) continue;
+            
+            float sqrDist = (enemy.transform.position - origin).sqrMagnitude;
+            
+            if (sqrDist <= sqrRange)
+                enemiesInRange.Add((enemy,sqrDist));
+        }
+
+        enemiesInRange.Sort((a,b) => a.sqrDist.CompareTo(b.sqrDist));
+        return enemiesInRange.Select(pair => pair.enemy).ToList();
     }
 
     public void RegisterEnemy(Enemy enemy)

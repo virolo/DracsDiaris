@@ -116,7 +116,7 @@ public class Drac : MonoBehaviour
 
     private void CheckEnemiesInRange()
     {
-        List<Enemy> enemiesList = _levelManager.GetEnemiesInRange(transform.position, _dracData._radius);
+        List<Enemy> enemiesList = _levelManager.Enemies.GetEnemiesInRange(transform.position, _dracData._radius);
         HashSet<Enemy> currentEnemiesInRange = new HashSet<Enemy>(enemiesList);
 
 

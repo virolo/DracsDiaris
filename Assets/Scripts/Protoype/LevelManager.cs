@@ -1,41 +1,109 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using Unity.Collections;
 using UnityEngine;
+
 
 public class LevelManager : MonoBehaviour
 {
-    
-    [SerializeField] private UIManager _uiManager;
-    [SerializeField] private EnemiesManager _enemies;
+    public enum LevelState
+    {
+        Setup,
+        Wave,
+        Shop,
+        GameOver,
+        Win
+    }
+
+    [Header("Components")] [SerializeField]
+    private EnemiesManager _enemies;
+
+    [Header("Values")] [SerializeField] private float _princessHealth = 100f;
+    [SerializeField] private float _waveCount = 3f;
+
+
+    [ReadOnly] private LevelState _levelState;
 
     public EnemiesManager Enemies => _enemies;
-    
-    public void InitWave()
+
+    private void Start()
     {
-        //Start Wave Change Level State
-        
-        _enemies.InitWave(this);
+        _levelState = LevelState.Setup;
+    }
+
+    private void Update()
+    {
+        UpdateState();
     }
     
-    public List<Enemy> GetEnemiesInRange(Vector3 origin, float range)
+    public void ChangeState(LevelState newState)
     {
-        float sqrRange = range * range;
-        
-        List<(Enemy enemy, float sqrDist)> enemiesInRange = new List<(Enemy,float)>();
-
-        foreach (Enemy enemy in _enemies.ActiveEnemies)
+        EndState(_levelState,newState);
+        StartState(_levelState,newState);
+    }
+    
+    private void StartState(LevelState currentState, LevelState newState)
+    {
+     
+        switch (_levelState)
         {
-            
-            if (enemy == null) continue;
-            
-            float sqrDist = (enemy.transform.position - origin).sqrMagnitude;
-            
-            if (sqrDist <= sqrRange)
-                enemiesInRange.Add((enemy,sqrDist));
+            case LevelState.Setup:
+                break;
+            case LevelState.Wave:
+                InitWave();
+                break;
+            case LevelState.Shop:
+                break;
+            case LevelState.GameOver:
+                break;
+            case LevelState.Win:
+                break;
         }
+    }
 
-        enemiesInRange.Sort((a,b) => a.sqrDist.CompareTo(b.sqrDist));
-        return enemiesInRange.Select(pair => pair.enemy).ToList();
+    private void UpdateState()
+    {
+        switch (_levelState)
+        {
+            case LevelState.Setup:
+                break;
+            case LevelState.Wave:
+
+                if (_enemies.HasEnemies)
+                {
+                    
+                }
+                else
+                {
+                    ChangeState(LevelState.Shop);
+                }
+                break;
+            case LevelState.Shop:
+                break;
+            case LevelState.GameOver:
+                break;
+            case LevelState.Win:
+                break;
+        }
+    }
+    
+    private void EndState(LevelState currentState, LevelState newState)
+    {
+        switch (_levelState)
+        {
+            case LevelState.Setup:
+                break;
+            case LevelState.Wave:
+                break;
+            case LevelState.Shop:
+                break;
+            case LevelState.GameOver:
+                break;
+            case LevelState.Win:
+                break;
+        }
+    }
+    public void InitWave()
+    {
+        _enemies.InitWave(this);
     }
 }
