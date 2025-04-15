@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     private const float REACH_THRESHOLD = .1f;
 
+    private LevelManager _levelManager;
     private Queue<Vector3> _pathPoints;
     private Vector3 _currentTarget;
 
@@ -25,6 +26,29 @@ public class Enemy : MonoBehaviour
 
     public float Health => _currentHealth;
     
+    [SerializeField] private StatusEffectsController _statusEffectsController;
+
+
+
+    public void ApplyEffect(StatusEffect effect, object source = null)
+    {
+        _statusEffectsController.ApplyEffect(effect, source);
+    }
+
+    public void RemoveEffect(StatusEffect effect, object source = null)
+    {
+        _statusEffectsController.RemoveEffect(effect, source);
+    }
+
+    private float Speed
+    {
+        get
+        {
+            float speedMultiplier = _statusEffectsController.GetModifier(StatusType.Speed);
+            return _enemyData._speed * speedMultiplier * Time.deltaTime;
+        }
+    }
+    
     public void SetupEnemy(EnemyData enemyData)
     {
         _currentHealth = enemyData._health;
@@ -37,22 +61,36 @@ public class Enemy : MonoBehaviour
         meshRenderer.material = material;
     }
     
-    public void Init(List<Vector3> pathPoints)
+    public void Init(List<Vector3> pathPoints, LevelManager levelManager)
     {
         _pathPoints = new Queue<Vector3>(pathPoints);
-
-        if (_pathPoints.Count > 0)
-        {
-            transform.position = _pathPoints.Dequeue();
-            SetNextTarget();
-        }
-
+        _levelManager = levelManager;
 
         _totalPathLength = 0;
 
         for (int i = 0; i < pathPoints.Count - 1; i++)
         {
             _totalPathLength += Vector3.Distance(pathPoints[i], pathPoints[i + 1]);
+        }
+        
+        _levelManager.Enemies.RegisterEnemy(this);
+        StartMoving();
+    }
+
+    private void StartMoving()
+    {
+        if (_pathPoints.Count > 0)
+        {
+            transform.position = _pathPoints.Dequeue();
+            SetNextTarget();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_levelManager != null)
+        {
+            _levelManager.Enemies.UnregisterEnemy(this);
         }
     }
 
@@ -64,8 +102,8 @@ public class Enemy : MonoBehaviour
         float distance = direction.magnitude;
         direction.Normalize();
 
-        _traveledDistance += _enemyData._speed * Time.deltaTime;
-        transform.position += direction * (_enemyData._speed * Time.deltaTime);
+        _traveledDistance += Speed;
+        transform.position += direction * Speed;
 
         if (distance <= REACH_THRESHOLD)
         {

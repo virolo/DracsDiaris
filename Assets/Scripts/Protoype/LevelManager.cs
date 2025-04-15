@@ -7,71 +7,35 @@ public class LevelManager : MonoBehaviour
 {
     
     [SerializeField] private UIManager _uiManager;
-    
-    [SerializeField] private PathManager _pathManager;
     [SerializeField] private EnemiesManager _enemies;
+
+    public EnemiesManager Enemies => _enemies;
     
-    public EnemiesManager Enemies { get { return _enemies; } }
-    
-    private bool randomWave = false;
-    
-    [ContextMenu("Initialize Wave")]
     public void InitWave()
     {
-        List<Enemy> enemies = _enemies.GetEnemies;
+        //Start Wave Change Level State
         
-        
-        if (enemies.Count > 0)
-        {
-            
-            if (randomWave)
-                ShuffleList(enemies);
-            
-            StartCoroutine(SpawnEnemies(enemies));
-        }
-            
+        _enemies.InitWave(this);
     }
     
-    public void RandomizeWave(bool value) => randomWave = value;
-    
-    private void ShuffleList<T>(List<T> list)
-    {
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int j = Random.Range(0, i + 1);
-            (list[i], list[j]) = (list[j], list[i]);
-        }
-    }
-
-    private IEnumerator SpawnEnemies(List<Enemy> enemies)
-    {
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.transform.parent = _pathManager.transform;
-            enemy.Init(_pathManager.GetPathPoints());
-
-            // Esperar entre 0.1s y 0.3s antes de instanciar el siguiente
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.8f));
-        }
-    }
-
-
     public List<Enemy> GetEnemiesInRange(Vector3 origin, float range)
     {
-        List<Enemy> enemiesinPath = _pathManager.GetComponentsInChildren<Enemy>().ToList();
+        float sqrRange = range * range;
+        
+        List<(Enemy enemy, float sqrDist)> enemiesInRange = new List<(Enemy,float)>();
 
-        List<Enemy> enemiesInRange = new List<Enemy>();
-
-        foreach (Enemy enemy in enemiesinPath)
+        foreach (Enemy enemy in _enemies.ActiveEnemies)
         {
-            if (enemy != null && Vector3.Distance(origin, enemy.transform.position) <= range)
-            {
-                enemiesInRange.Add(enemy);
-            }
+            
+            if (enemy == null) continue;
+            
+            float sqrDist = (enemy.transform.position - origin).sqrMagnitude;
+            
+            if (sqrDist <= sqrRange)
+                enemiesInRange.Add((enemy,sqrDist));
         }
 
-        return enemiesInRange
-            .OrderBy(enemy => Vector3.Distance(origin, enemy.transform.position))
-            .ToList();
+        enemiesInRange.Sort((a,b) => a.sqrDist.CompareTo(b.sqrDist));
+        return enemiesInRange.Select(pair => pair.enemy).ToList();
     }
 }

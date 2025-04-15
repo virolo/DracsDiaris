@@ -11,7 +11,7 @@ public class DracSelectorSlot : MonoBehaviour
     public DracData GetData => _dracData;
 
 
-    private void Start()
+    private void Awake()
     {
         _selectedImage = GetComponent<Image>();
     }

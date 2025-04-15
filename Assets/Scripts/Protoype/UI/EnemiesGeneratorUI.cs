@@ -41,7 +41,7 @@ public class EnemiesGeneratorUI : MonoBehaviour
     
     public void SpawnEnemies()
     {
-        _enemiesManager.AddEnemies(_amount,_selectedEnemy);
+        _enemiesManager.SpawnEnemies(_amount,_selectedEnemy);
     }
 
 

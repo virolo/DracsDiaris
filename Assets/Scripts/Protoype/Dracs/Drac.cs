@@ -24,6 +24,8 @@ public class Drac : MonoBehaviour
     
     [SerializeField] private Projectile _projectilePrefab;
 
+    [SerializeField] private StatusEffect _areaEffect;
+
     private float _lastShotTime = 0.0f;
 
     private float _lastRadius = 0.0f;
@@ -33,6 +35,8 @@ public class Drac : MonoBehaviour
     private LineRenderer _lineRenderer;
 
     public DracData DracData => _dracData;
+
+    private HashSet<Enemy> _previousEnemiesInRange = new HashSet<Enemy>();
     
     public void Init(LevelManager levelManager, DracData dracData)
     {
@@ -83,11 +87,51 @@ public class Drac : MonoBehaviour
             _lastRadius = _dracData._radius;
         }
         
-        List<Enemy> _enemiesInRange = _levelManager.GetEnemiesInRange(transform.position, _dracData._radius);
+        CheckEnemiesInRange();
+    }
 
-        if (_enemiesInRange.Count == 0) return;
+    private void ShootProjectile(Enemy target)
+    {
+        Projectile projectile = Instantiate(_projectilePrefab, transform);
+        
+        projectile.InitProjectile(_projectileSpawnPoint.position, target, _dracData._damage,_levelManager);
+    }
 
-        Enemy selectedTarget = SelectTarget(_enemiesInRange);
+    private void OnEnemyEnterRange(Enemy enemy)
+    {
+        if (_areaEffect)
+            enemy.ApplyEffect(_areaEffect,this);
+    }
+    
+    private void OnEnemyExitRange(Enemy enemy)
+    {
+        if (_areaEffect)
+            enemy.RemoveEffect(_areaEffect,this);
+    }
+
+    private void CheckEnemiesInRange()
+    {
+        List<Enemy> enemiesList = _levelManager.GetEnemiesInRange(transform.position, _dracData._radius);
+        HashSet<Enemy> currentEnemiesInRange = new HashSet<Enemy>(enemiesList);
+
+
+        foreach (Enemy enemy in currentEnemiesInRange)
+        {
+            if (!_previousEnemiesInRange.Contains(enemy))
+                OnEnemyEnterRange(enemy);
+        }
+
+        foreach (Enemy previous in _previousEnemiesInRange)
+        {
+            if (!currentEnemiesInRange.Contains(previous))
+                OnEnemyExitRange(previous);
+        }
+        
+        _previousEnemiesInRange = currentEnemiesInRange;
+        
+        if (enemiesList.Count == 0) return;
+        
+        Enemy selectedTarget = SelectTarget(enemiesList);
 
         if (selectedTarget != null&& Time.time >= _lastShotTime + (1/_dracData._attackSpeed))
         {
@@ -106,13 +150,6 @@ public class Drac : MonoBehaviour
                 _meshRenderer.transform.rotation = targetRotation * modelCorrection;
             }
         }
-    }
-
-    private void ShootProjectile(Enemy target)
-    {
-        Projectile projectile = Instantiate(_projectilePrefab, transform);
-        
-        projectile.InitProjectile(_projectileSpawnPoint.position, target, _dracData._damage,_levelManager);
     }
     
     private Enemy SelectTarget(List<Enemy> enemies)
