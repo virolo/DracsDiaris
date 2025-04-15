@@ -6,13 +6,21 @@ public class StatusEffectsController : MonoBehaviour
 {
     [SerializeField] private List<StatusEffectInsatnce> _activeEffects = new List<StatusEffectInsatnce>();
 
+    private object _target;
+
+
+    public void SetTarget(object target)
+    {
+        _target = target;
+    }
+    
     private void Update()
     {
         float dt = Time.deltaTime;
 
         for (int i = _activeEffects.Count - 1; i >= 0; i--)
         {
-            if (!_activeEffects[i].Update(dt))
+            if (!_activeEffects[i].Update(_target,dt))
             {
                 _activeEffects.RemoveAt(i);
             }
@@ -23,7 +31,7 @@ public class StatusEffectsController : MonoBehaviour
     {
         if (source != null)
         {
-            var instance = new StatusEffectInsatnce(effect, source);
+            var instance = new StatusEffectInsatnce(effect, _target,source);
             _activeEffects.Add(instance);
             return;
         }
@@ -34,7 +42,7 @@ public class StatusEffectsController : MonoBehaviour
             _activeEffects.Remove(existing);
         }
         
-        var newInstance = new StatusEffectInsatnce(effect);
+        var newInstance = new StatusEffectInsatnce(effect,_target);
         _activeEffects.Add(newInstance);
     }
 

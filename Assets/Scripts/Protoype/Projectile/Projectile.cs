@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -8,6 +9,7 @@ public class Projectile : MonoBehaviour
     private float _speed = 20.0f;
     private float _damage = 1.0f;
     
+    [SerializeField] private List<StatusEffect> _statusEffect = new List<StatusEffect>();
     
     Vector3 direction = Vector3.zero;
     LevelManager _levelManager = null;
@@ -46,7 +48,16 @@ public class Projectile : MonoBehaviour
 
         if (_target && Vector3.Distance(transform.position, _target.transform.position) < 0.1f)
         {
-            _target.AddDamage(_damage);
+            _target.ApplyDamage(_damage);
+
+            if (_statusEffect.Count > 0)
+            {
+                foreach (StatusEffect effect in _statusEffect)
+                {
+                    _target.ApplyEffect(effect);
+                }
+            }
+            
             Destroy(gameObject);
         }
         else if (transform.position.y <= 0.0f)

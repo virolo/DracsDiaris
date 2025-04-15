@@ -197,9 +197,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelManager: {fileID: 0}
   _dracData: {fileID: 0}
+  _projectileDatabase: {fileID: 11400000, guid: 911f6553f2fc8d94da1cc63cf16c48bc, type: 2}
   _meshRenderer: {fileID: 6974002973797479115}
   _projectileSpawnPoint: {fileID: 4223729604272489138}
   _projectilePrefab: {fileID: 2644786268919851188, guid: ffff2682238a1aa4cbf1e2bd2bffda6d, type: 3}
+  _areaEffect: {fileID: 0}
 --- !u!23 &6974002973797479115 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4716993751500803181, guid: 448dcf5d535a3a3479904236e511a19b, type: 3}

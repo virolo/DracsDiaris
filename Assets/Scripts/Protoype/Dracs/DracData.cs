@@ -8,6 +8,8 @@ public class DracData : ScriptableObject
     public float _radius = 1;
 
     public TargetingMode _targetingMode = TargetingMode.ClosestToDrac;
+    
+    public PrjectileType _projectileType;
 
     public Color _color = default;
 }

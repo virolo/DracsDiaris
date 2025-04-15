@@ -3,6 +3,7 @@ public enum StatusType
     Speed,
     Armor,
     AttackPower,
+    Damage,
 }
 
 

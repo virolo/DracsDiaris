@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3295861952335826424}
   - component: {fileID: 2644786268919851188}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: P_Poison
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5dd0c95eced9c93499052f1d85be8438, type: 2}
+  - {fileID: 2100000, guid: a3f247860640cb44f9a39f7d432fe7cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,3 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cedc3e6e863cc48b175b6b4ccdb4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _statusEffect:
+  - {fileID: 11400000, guid: dcbddcce6c905954f9dac23a0e7b05a0, type: 2}
+  - {fileID: 11400000, guid: 2bb87b3f2aef6564c86828b283f787f2, type: 2}

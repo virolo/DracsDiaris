@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93582b182bbcff945a337aae2fd77e93, type: 3}
-  m_Name: Drac 1
+  m_Script: {fileID: 11500000, guid: e687b34fec1ea404c80945281247874b, type: 3}
+  m_Name: Poison
   m_EditorClassIdentifier: 
-  _damage: 20
-  _attackSpeed: 2.5
-  _radius: 3
-  _targetingMode: 3
-  _color: {r: 0, g: 0.093925, b: 1, a: 1}
+  _duraction: 5
+  _dps: 5

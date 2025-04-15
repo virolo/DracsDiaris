@@ -19,6 +19,8 @@ public class Drac : MonoBehaviour
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private DracData _dracData;
 
+    [SerializeField] private ProjectileDatabase _projectileDatabase;
+
     [SerializeField] private MeshRenderer _meshRenderer;
     [SerializeField] private Transform _projectileSpawnPoint;
     
@@ -33,6 +35,8 @@ public class Drac : MonoBehaviour
     private const int CIRCLE_SEGMENTS = 20;
 
     private LineRenderer _lineRenderer;
+    
+    private ProjectileFactory _projectileFactory;
 
     public DracData DracData => _dracData;
 
@@ -46,6 +50,8 @@ public class Drac : MonoBehaviour
         Material material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         _meshRenderer.material = material;
         material.color = _dracData._color;
+
+        _projectileFactory = new ProjectileFactory(_projectileDatabase);
     }
     
     private void Start()
@@ -92,8 +98,7 @@ public class Drac : MonoBehaviour
 
     private void ShootProjectile(Enemy target)
     {
-        Projectile projectile = Instantiate(_projectilePrefab, transform);
-        
+        Projectile projectile = Instantiate(_projectileFactory.GetProjectile(_dracData._projectileType), transform);
         projectile.InitProjectile(_projectileSpawnPoint.position, target, _dracData._damage,_levelManager);
     }
 

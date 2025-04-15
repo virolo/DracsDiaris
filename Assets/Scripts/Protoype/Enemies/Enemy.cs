@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamagable
 {
     private const float REACH_THRESHOLD = .1f;
 
@@ -21,13 +21,18 @@ public class Enemy : MonoBehaviour
     private float _totalPathLength = 0.0f;    
     private float _traveledDistance = 0.0f;
 
-    private float _currentHealth = 0f;
+    [SerializeField] private float _currentHealth = 0f;
     public float ProgressPercent { get; private set; }
 
     public float Health => _currentHealth;
     
     [SerializeField] private StatusEffectsController _statusEffectsController;
 
+
+    private void Awake()
+    {
+        _statusEffectsController.SetTarget(this);
+    }
 
 
     public void ApplyEffect(StatusEffect effect, object source = null)
@@ -128,9 +133,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void AddDamage(float damage)
+    public void ApplyDamage(float amount)
     {
-        _currentHealth -= damage;
+        _currentHealth -= amount;
         
         if (_currentHealth <= 0)
             Destroy(gameObject);
