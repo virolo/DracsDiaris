@@ -1,0 +1,68 @@
+
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class Projectile : MonoBehaviour
+{
+    private Enemy _target = null;
+    private float _speed = 20.0f;
+    private float _damage = 1.0f;
+    
+    [SerializeField] private List<StatusEffect> _statusEffect = new List<StatusEffect>();
+    
+    Vector3 direction = Vector3.zero;
+    LevelManager _levelManager = null;
+    
+    public void InitProjectile(Vector3 origin, Enemy target, float damage, LevelManager levelManager)
+    {
+        transform.position = origin;
+
+        _target = target;
+        _damage = damage;
+        
+        direction = (_target.transform.position - transform.position).normalized;
+
+        _levelManager = levelManager;
+    }
+
+
+    private void Update()
+    {
+        if (_target)
+        {
+            direction = (_target.transform.position - transform.position).normalized;
+        }
+        else
+        {
+            List<Enemy> enemy = _levelManager.Enemies.GetEnemiesInRange(transform.position, 2.0f);
+
+            if (enemy.Count > 0)
+            {
+                _target = enemy[0];
+                direction = (_target.transform.position - transform.position).normalized;
+            }
+        }
+        
+        transform.position += direction * (_speed * Time.deltaTime);
+
+        if (_target && Vector3.Distance(transform.position, _target.transform.position) < 0.1f)
+        {
+            _target.ApplyDamage(_damage);
+
+            if (_statusEffect.Count > 0)
+            {
+                foreach (StatusEffect effect in _statusEffect)
+                {
+                    _target.ApplyEffect(effect);
+                }
+            }
+            
+            Destroy(gameObject);
+        }
+        else if (transform.position.y <= 0.0f)
+        {
+            Destroy(gameObject);
+        }
+    }
+}
