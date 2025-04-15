@@ -16,7 +16,8 @@ public class LevelManager : MonoBehaviour
 
     [Header("Components")] [SerializeField]
     private EnemiesManager _enemies;
-
+    [SerializeField] private WaveSystem _waveSystem;
+    
     [Header("Values")] [SerializeField] private float _princessHealth = 100f;
     [SerializeField] private float _waveCount = 3f;
 
@@ -47,6 +48,8 @@ public class LevelManager : MonoBehaviour
         switch (_levelState)
         {
             case LevelState.Setup:
+                
+                Enemies.SpawnEnemies(_waveSystem.GetNextWave());
                 break;
             case LevelState.Wave:
                 InitWave();

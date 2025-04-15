@@ -5390,6 +5390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 730606593}
   - component: {fileID: 730606592}
+  - component: {fileID: 730606594}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -5409,8 +5410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47479c56b01d20428c94d020369ccab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiManager: {fileID: 0}
   _enemies: {fileID: 1967619960}
+  _waveSystem: {fileID: 0}
+  _princessHealth: 100
+  _waveCount: 3
 --- !u!4 &730606593
 Transform:
   m_ObjectHideFlags: 0
@@ -5426,6 +5429,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &730606594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730606591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231d20335ea7a9f42b1ab62b0af0ab50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _waves: {fileID: 11400000, guid: 1430388167aed1549a3e4d7bc42b8a3b, type: 2}
 --- !u!1 &754418332
 GameObject:
   m_ObjectHideFlags: 0

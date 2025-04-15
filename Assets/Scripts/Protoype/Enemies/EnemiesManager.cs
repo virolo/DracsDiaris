@@ -18,6 +18,21 @@ public class EnemiesManager : MonoBehaviour
         _activeEnemies.Count > 0 
         && _waitingEnemies.Count > 0;
 
+
+    public void SpawnEnemies(Wave wave)
+    {
+        // Todo Create a Enemy Factory
+        for (int i = 0; i < wave.WaveData.Count; i++)
+        {
+            for (int j = 0; j < wave.WaveData[i].EnemiesAmount; j++)
+            {
+                Vector3 spawnPosition = GetRandomSpawnPosition();
+                Enemy newEnemy = Instantiate(_enemyPrefab, spawnPosition, quaternion.identity);
+                newEnemy.SetupEnemy(wave.WaveData[i].EnemyData);
+                _waitingEnemies.Add(newEnemy);
+            }
+        }
+    }
     public void SpawnEnemies(int amount, EnemyData data)
     {
         for (int i = 0; i < amount; i++)
