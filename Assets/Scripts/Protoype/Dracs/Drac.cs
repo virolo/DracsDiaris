@@ -38,14 +38,29 @@ public class Drac : MonoBehaviour
     
     private ProjectileFactory _projectileFactory;
 
-    public DracData DracData => _dracData;
+    private float _timeRemaining = 0;
+
+    private bool _isAttacking = false;
 
     private HashSet<Enemy> _previousEnemiesInRange = new HashSet<Enemy>();
+
+    public DracData DracData => _dracData;
+
+    public float TimeRemaining => _timeRemaining;
     
-    public void Init(LevelManager levelManager, DracData dracData)
+    public void Init(LevelManager levelManager, DracData dracData, float timeRemaining = -1)
     {
         _levelManager = levelManager;
         _dracData = dracData;
+
+        if(timeRemaining != -1)
+        {
+            _timeRemaining = timeRemaining;
+        }
+        else
+        {
+            _timeRemaining = dracData._time;
+        }
 
         Material material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
         _meshRenderer.material = material;
@@ -92,8 +107,23 @@ public class Drac : MonoBehaviour
             DrawRangeCircle(_dracData._radius);
             _lastRadius = _dracData._radius;
         }
-        
+
+        if (_timeRemaining == 0) return;
+
         CheckEnemiesInRange();
+        UpdateTimeRemaining();
+    }
+
+    private void UpdateTimeRemaining()
+    {
+        if (!_isAttacking) return;
+
+        _timeRemaining -= Time.deltaTime;
+
+        if(_timeRemaining < 0)
+        {
+            _timeRemaining = 0;
+        }
     }
 
     private void ShootProjectile(Enemy target)
@@ -133,8 +163,14 @@ public class Drac : MonoBehaviour
         }
         
         _previousEnemiesInRange = currentEnemiesInRange;
-        
-        if (enemiesList.Count == 0) return;
+
+        if (enemiesList.Count == 0)
+        {
+            _isAttacking = false;
+            return;
+        }
+
+        _isAttacking = true;
         
         Enemy selectedTarget = SelectTarget(enemiesList);
 

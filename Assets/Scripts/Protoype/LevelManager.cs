@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
     [Header("Components")] [SerializeField]
     private EnemiesManager _enemies;
     [SerializeField] private WaveSystem _waveSystem;
+
+    [SerializeField] private BenchManager _bench;
     
     [Header("Values")] [SerializeField] private float _princessHealth = 100f;
     [SerializeField] private float _waveCount = 3f;
@@ -25,6 +27,7 @@ public class LevelManager : MonoBehaviour
     [ReadOnly] private LevelState _levelState;
 
     public EnemiesManager Enemies => _enemies;
+    public BenchManager Bench => _bench;
 
     private void Start()
     {
