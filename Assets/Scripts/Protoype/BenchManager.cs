@@ -18,7 +18,7 @@ public class BenchManager : MonoBehaviour
     {
         foreach(DracData data in _dracDeck)
         {
-           // _bench.Add(new BenchedDrac(data, data._time));
+           _bench.Add(new BenchedDrac(data, data._time));
         }
     }
     
@@ -38,7 +38,7 @@ public class BenchManager : MonoBehaviour
 
     public void BenchDrac(Drac drac)
     {
-       // _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
+       _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
     }
 
 }

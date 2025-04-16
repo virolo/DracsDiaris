@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BenchedDrac : MonoBehaviour
+public class BenchedDrac
 {
     private DracData _dracData;
     private float _timeRemaining = 0;
