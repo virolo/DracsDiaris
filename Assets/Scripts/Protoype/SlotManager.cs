@@ -23,7 +23,7 @@ public class SlotManager : MonoBehaviour
     private void OnSelectedSlot(DracSlot selectedSlot)
     {
         Drac currentDrac = selectedSlot.GetComponentInChildren<Drac>();
-        BenchedDrac benchedDrag = _levelManager.Bench.PlaceBenchedDrac(_dracSelector.GetSelectedDrac);
+        BenchedDrac benchedDrag = _levelManager.Bench.PlaceBenchedDrac(_dracSelector);
 
         if (!currentDrac && benchedDrag != null)
         {
@@ -38,14 +38,11 @@ public class SlotManager : MonoBehaviour
             Drac drac = Instantiate(_dracRef, selectedSlot.transform);
             drac.Init(_levelManager, benchedDrag.DracData, benchedDrag.TimeRemaining);
         }
-        else if(currentDrac && benchedDrag != null)
+        else if(currentDrac)
         {
             _levelManager.Bench.BenchDrac(currentDrac);
             Destroy(currentDrac.gameObject);
         }
-
-
-
 
     }
 }

@@ -27,4 +27,9 @@ public class DracSelectorSlot : MonoBehaviour
     {
         _selectedImage.color = Color.white;
     }
+
+    public void Activate(float time)
+    {
+        gameObject.SetActive(true);
+    }
 }

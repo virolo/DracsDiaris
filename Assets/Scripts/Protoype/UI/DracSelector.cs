@@ -30,4 +30,10 @@ public class DracSelector : MonoBehaviour
         
         _configuradorDrac.ChangeSelectedDrac(_selectorSlot.GetData);
     }
+
+    public void DeactivateDrac()
+    {
+        _selectorSlot.gameObject.SetActive(false);
+    }
+
 }

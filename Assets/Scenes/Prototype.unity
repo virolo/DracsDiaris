@@ -922,9 +922,10 @@ GameObject:
   - component: {fileID: 89711726}
   - component: {fileID: 89711725}
   - component: {fileID: 89711724}
+  - component: {fileID: 89711728}
   - component: {fileID: 89711727}
   m_Layer: 5
-  m_Name: Dracs
+  m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1032,6 +1033,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectorSlot: {fileID: 669161165}
   _configuradorDrac: {fileID: 1852256407}
+--- !u!114 &89711728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89711722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1a7ecc62850204b853fdb96fe73a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dracDeck:
+  - {fileID: 11400000, guid: 604c41bcc933b2d4684b7ac598f3bce4, type: 2}
+  - {fileID: 11400000, guid: 87b87cd993a633f4f8b8687f350bdb70, type: 2}
+  - {fileID: 11400000, guid: 4dc750a920e6e2f49be42683add8e917, type: 2}
+  - {fileID: 11400000, guid: 25566c033977b5344806e336e1f16966, type: 2}
+  - {fileID: 11400000, guid: b45495be68e11374baa7b0feb983c069, type: 2}
+  _dracSelectorSlots:
+  - {fileID: 669161165}
+  - {fileID: 754418337}
+  - {fileID: 1036741840}
+  - {fileID: 236696812}
+  - {fileID: 1948174498}
 --- !u!1 &95762194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,9 +2008,9 @@ RectTransform:
   - {fileID: 640083948}
   m_Father: {fileID: 89711723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 477.7, y: -116.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &236696809
@@ -5120,9 +5145,9 @@ RectTransform:
   - {fileID: 1014041478}
   m_Father: {fileID: 89711723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 94.600006, y: -116.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &669161162
@@ -5412,7 +5437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemies: {fileID: 1967619960}
   _waveSystem: {fileID: 730606594}
-  _bench: {fileID: 1465416236}
+  _bench: {fileID: 89711728}
   _princessHealth: 100
   _waveCount: 3
   _levelState: 0
@@ -5479,9 +5504,9 @@ RectTransform:
   - {fileID: 150952988}
   m_Father: {fileID: 89711723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 222.3, y: -116.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &754418334
@@ -7023,9 +7048,9 @@ RectTransform:
   - {fileID: 549231367}
   m_Father: {fileID: 89711723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350, y: -116.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1036741837
@@ -9798,56 +9823,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
---- !u!1 &1465416235
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1465416237}
-  - component: {fileID: 1465416236}
-  m_Layer: 0
-  m_Name: BenchManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1465416236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465416235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da1a7ecc62850204b853fdb96fe73a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dracDeck:
-  - {fileID: 11400000, guid: 604c41bcc933b2d4684b7ac598f3bce4, type: 2}
-  - {fileID: 11400000, guid: 87b87cd993a633f4f8b8687f350bdb70, type: 2}
-  - {fileID: 11400000, guid: 4dc750a920e6e2f49be42683add8e917, type: 2}
-  - {fileID: 11400000, guid: 25566c033977b5344806e336e1f16966, type: 2}
-  - {fileID: 11400000, guid: b45495be68e11374baa7b0feb983c069, type: 2}
---- !u!4 &1465416237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1465416235}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 379.8651, y: 127.07503, z: 31.008686}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1476834457
 GameObject:
   m_ObjectHideFlags: 0
@@ -12597,9 +12572,9 @@ RectTransform:
   - {fileID: 1545405678}
   m_Father: {fileID: 89711723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 605.4, y: -116.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1948174495
@@ -14164,4 +14139,3 @@ SceneRoots:
   - {fileID: 1379545039}
   - {fileID: 365528936}
   - {fileID: 534208309}
-  - {fileID: 1465416237}

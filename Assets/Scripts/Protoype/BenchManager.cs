@@ -6,6 +6,9 @@ public class BenchManager : MonoBehaviour
     [SerializeField]
     private List<DracData> _dracDeck = default; //En un futur aixo ha de vindre donat pel level manager: quins dracs tindr� el jugador per jugar el nivell
 
+    [SerializeField]
+    private List<DracSelectorSlot> _dracSelectorSlots = default;
+
     private List<BenchedDrac> _bench = default;
 
     private void Start()
@@ -22,12 +25,13 @@ public class BenchManager : MonoBehaviour
         }
     }
     
-    public BenchedDrac PlaceBenchedDrac(DracData data)
+    public BenchedDrac PlaceBenchedDrac(DracSelector dracSelector)
     {
         foreach(BenchedDrac drac in _bench)
         {
-            if(drac.DracData == data)
+            if(drac.DracData == dracSelector.GetSelectedDrac)
             {
+                dracSelector.DeactivateDrac();
                 _bench.Remove(drac);
                 return drac;
             }
@@ -38,7 +42,15 @@ public class BenchManager : MonoBehaviour
 
     public void BenchDrac(Drac drac)
     {
-       _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
+        _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
+        
+        foreach(DracSelectorSlot dracSlot in _dracSelectorSlots)
+        {
+            if(dracSlot.GetData == drac.DracData)
+            {
+                dracSlot.Activate(drac.TimeRemaining);
+            }
+        }
     }
 
 }
