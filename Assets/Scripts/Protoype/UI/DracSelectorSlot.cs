@@ -5,6 +5,7 @@ public class DracSelectorSlot : MonoBehaviour
 {
 
     [SerializeField] private DracData _dracData;
+    [SerializeField] private Scrollbar _timeBar;
 
     private Image _selectedImage;
     
@@ -23,6 +24,11 @@ public class DracSelectorSlot : MonoBehaviour
         
     }
 
+    public void UpdateTimerBar(float percent)
+    {
+        _timeBar.size = percent;
+    }
+
     public void Deselect()
     {
         _selectedImage.color = Color.white;
@@ -31,5 +37,6 @@ public class DracSelectorSlot : MonoBehaviour
     public void Activate(float time)
     {
         gameObject.SetActive(true);
+        _timeBar.value = time / _dracData._time;
     }
 }

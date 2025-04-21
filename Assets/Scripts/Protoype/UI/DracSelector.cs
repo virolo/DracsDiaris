@@ -8,7 +8,7 @@ public class DracSelector : MonoBehaviour
     [SerializeField] private ConfiguradorDrac _configuradorDrac;
 
 
-    public DracData GetSelectedDrac => _selectorSlot.GetData;
+    public DracSelectorSlot GetSelectedDrac => _selectorSlot;
     
     private void Start()
     {

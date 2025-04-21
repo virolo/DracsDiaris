@@ -30,7 +30,7 @@ public class SlotManager : MonoBehaviour
             Drac drac = Instantiate(_dracRef, selectedSlot.transform);
             drac.Init(_levelManager, benchedDrag.DracData, benchedDrag.TimeRemaining);
         }
-        else if (currentDrac != null && currentDrac.DracData != _dracSelector.GetSelectedDrac && benchedDrag != null)
+        else if (currentDrac != null && currentDrac.DracData != _dracSelector.GetSelectedDrac.GetData && benchedDrag != null)
         {
             _levelManager.Bench.BenchDrac(currentDrac);
             Destroy(currentDrac.gameObject);

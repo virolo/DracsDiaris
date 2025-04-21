@@ -4,24 +4,31 @@ using UnityEngine;
 public class BenchManager : MonoBehaviour
 {
     [SerializeField]
-    private List<DracData> _dracDeck = default; //En un futur aixo ha de vindre donat pel level manager: quins dracs tindr� el jugador per jugar el nivell
-
-    [SerializeField]
-    private List<DracSelectorSlot> _dracSelectorSlots = default;
+    private List<BenchedDrac> _deck = default;
 
     private List<BenchedDrac> _bench = default;
 
     private void Start()
     {
-        _bench = new List<BenchedDrac>();
-        FillTheBench();
+        //_bench = new List<BenchedDrac>();
+
+        FillTheBench();        
+    }
+
+    private void Update()
+    {
+        foreach(BenchedDrac drac in _bench)
+        {
+            drac.Update();
+        }
     }
 
     private void FillTheBench()
     {
-        foreach(DracData data in _dracDeck)
+        _bench = new List<BenchedDrac>();
+        foreach (BenchedDrac drac in _deck)
         {
-           _bench.Add(new BenchedDrac(data, data._time));
+            _bench.Add(drac);
         }
     }
     
@@ -29,7 +36,7 @@ public class BenchManager : MonoBehaviour
     {
         foreach(BenchedDrac drac in _bench)
         {
-            if(drac.DracData == dracSelector.GetSelectedDrac)
+            if(drac.Slot == dracSelector.GetSelectedDrac)
             {
                 dracSelector.DeactivateDrac();
                 _bench.Remove(drac);
@@ -41,14 +48,13 @@ public class BenchManager : MonoBehaviour
     }
 
     public void BenchDrac(Drac drac)
-    {
-        _bench.Add(new BenchedDrac(drac.DracData, drac.TimeRemaining));
-        
-        foreach(DracSelectorSlot dracSlot in _dracSelectorSlots)
+    {        
+        foreach(BenchedDrac dracSlot in _deck)
         {
-            if(dracSlot.GetData == drac.DracData)
+            if(!dracSlot.Slot.gameObject.activeSelf && dracSlot.Slot.GetData == drac.DracData)
             {
-                dracSlot.Activate(drac.TimeRemaining);
+                dracSlot.GetOnBench(drac.TimeRemaining);
+                _bench.Add(dracSlot);                
             }
         }
     }

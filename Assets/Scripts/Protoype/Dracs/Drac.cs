@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public enum TargetingMode
 {
@@ -15,7 +15,7 @@ public enum TargetingMode
 
 public class Drac : MonoBehaviour
 {
-    
+
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private DracData _dracData;
 
@@ -23,10 +23,12 @@ public class Drac : MonoBehaviour
 
     [SerializeField] private MeshRenderer _meshRenderer;
     [SerializeField] private Transform _projectileSpawnPoint;
-    
+
     [SerializeField] private Projectile _projectilePrefab;
 
     [SerializeField] private StatusEffect _areaEffect;
+
+    [SerializeField] private Scrollbar _timeBar;
 
     private float _lastShotTime = 0.0f;
 
@@ -83,6 +85,8 @@ public class Drac : MonoBehaviour
 
         DrawRangeCircle(_dracData._radius);
         _lastRadius= _dracData._radius;
+
+        _timeBar.transform.position = Camera.main.WorldToScreenPoint(transform.position);
     }
 
     private void DrawRangeCircle( float radius)
@@ -119,10 +123,12 @@ public class Drac : MonoBehaviour
         if (!_isAttacking) return;
 
         _timeRemaining -= Time.deltaTime;
+        UpdateTimeBar();
 
-        if(_timeRemaining < 0)
+        if (_timeRemaining < 0)
         {
             _timeRemaining = 0;
+            UpdateTimeBar();
         }
     }
 
@@ -225,5 +231,12 @@ public class Drac : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    private void UpdateTimeBar()
+    {
+        float timePercent = _timeRemaining / _dracData._time;
+
+        _timeBar.size = timePercent;
     }
 }
