@@ -37,6 +37,6 @@ public class DracSelectorSlot : MonoBehaviour
     public void Activate(float time)
     {
         gameObject.SetActive(true);
-        _timeBar.value = time / _dracData._time;
+        _timeBar.size = time / _dracData._time;
     }
 }
