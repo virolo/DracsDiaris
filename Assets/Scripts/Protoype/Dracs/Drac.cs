@@ -40,7 +40,7 @@ public class Drac : MonoBehaviour
     
     private ProjectileFactory _projectileFactory;
 
-    private float _timeRemaining = 0;
+    private float _timeRemaining = 1;
 
     private bool _isAttacking = false;
 

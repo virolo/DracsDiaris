@@ -14,11 +14,10 @@ public class BenchedDrac : MonoBehaviour
     public float TimeRemaining => _timeRemaining;
     public DracSelectorSlot Slot => _slot;
 
-    
-    public void Init(DracData data, float timeRemaining)
+
+    private void Start()
     {
-        _dracData = data;
-        _timeRemaining = timeRemaining;
+        _timeRemaining = _dracData._time;
     }
 
     public void GetOnBench(float timeRemaining)
